@@ -1,4 +1,3 @@
-bool somePredicate(double x);
 // Return true if the somePredicate function returns false for at
 // least one of the array elements; return false otherwise.
 bool anyFalse(const double a[], int n)
@@ -6,7 +5,7 @@ bool anyFalse(const double a[], int n)
 	if (n <= 0) {
 		return false; //base case
 	}
-	if (somePredicate(a[0])) { //base case
+	if (!somePredicate(a[0])) { //base case
 		return true;
 	}
 	return anyFalse(a + 1, n - 1); //recursion to last case
@@ -37,7 +36,7 @@ int countTrue(const double a[], int n)
 // element, return -1.
 int firstTrue(const double a[], int n)
 {
-	if (n <= 0) { //base case
+	if (n <= 0) { //base case, reached end without finding element
 		return -1;
 	}
 	if (somePredicate(a[0])) { //base case
@@ -45,10 +44,10 @@ int firstTrue(const double a[], int n)
 	}
 	int pos = firstTrue(a + 1, n - 1); //recursion
 	if (pos == -1) {
-		return -1;
+		return -1; //stays as -1, does not increment
 	}
 	else {
-		return pos + 1; //increment by pos
+		return pos + 1; //increment pos by 1
 	}
 }
 
@@ -65,7 +64,7 @@ int positionOfSmallest(const double a[], int n)
 		return 0;
 	}
 	int pos = positionOfSmallest(a, n - 1); //first recursion, looks at n=1,then n=2, then ... until n is equal to original parameter
-	if (a[n - 1] <= a[pos]) { 
+	if (a[n - 1] < a[pos]) { //first case that is smallest
 		pos = n - 1;
 	}
 	return pos;
@@ -100,8 +99,4 @@ bool contains(const double a1[], int n1, const double a2[], int n2)
 	else {
 		return contains(a1 + 1, n1 - 1, a2, n2);
 	}
-}
-bool somePredicate(double x)
-{
-	return x < 0;
 }
