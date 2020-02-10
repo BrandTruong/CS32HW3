@@ -12,34 +12,28 @@
 				 then return true.
 	Return false
 */
-#include <string>
-
-using namespace std;
-
-const char OPEN = '.';
-const char SEEN = 'o';
 
 bool pathExists(string maze[], int nRows, int nCols, int sr, int sc, int er, int ec) {
 	if (sr == er && sc == ec) {
 		return true;
 	}
-	maze[sr][sc] = SEEN;
-	if (sr - 1 >= 0 && maze[sr - 1][sc] == OPEN) {
+	maze[sr][sc] = 'o'; //Visited = 'o', Path = '.'
+	if (sr - 1 >= 0 && maze[sr - 1][sc] == '.') { //North
 		if (pathExists(maze, nRows, nCols, sr - 1, sc, er, ec)) {
 			return true;
 		}
 	}
-	if (sr + 1 < nRows && maze[sr + 1][sc] == OPEN) {
+	if (sr + 1 < nRows && maze[sr + 1][sc] == '.') { //South
 		if (pathExists(maze, nRows, nCols, sr + 1, sc, er, ec)) {
 			return true;
 		}
 	}
-	if (sc - 1 >= 0 && maze[sr][sc - 1] == OPEN) {
+	if (sc - 1 >= 0 && maze[sr][sc - 1] == '.') { //West
 		if (pathExists(maze, nRows, nCols, sr, sc - 1, er, ec)) {
 			return true;
 		}
 	}
-	if (sc + 1 < nCols && maze[sr][sc + 1] == OPEN) {
+	if (sc + 1 < nCols && maze[sr][sc + 1] == '.') { //East
 		if (pathExists(maze, nRows, nCols, sr, sc + 1, er, ec)) {
 			return true;
 		}
