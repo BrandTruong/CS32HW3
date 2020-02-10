@@ -21,7 +21,7 @@ int countContains(const double a1[], int n1, const double a2[], int n2)
 	if (a1[0] == a2[0]) {
 		total += countContains(a1 + 1, n1 - 1, a2 + 1, n2 - 1); //recursion next value in n2
 	}
-	total += countContains(a1 + 1, n1 - 1, a2, n2);
+	total += countContains(a1 + 1, n1 - 1, a2, n2); //recursion other ways
 	return total;
 }
 
@@ -95,7 +95,7 @@ void order(double a[], int n)
 	}
 	int before;
 	int after;
-	separate(a, n, a[0], before, after); //separates into two parts
+	separate(a, n, a[n/2], before, after); //separates into two parts
 	order(a, before); //sorts first part
 	order(a + after, n - after); //sorts last part
 }
