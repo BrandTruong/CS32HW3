@@ -1,8 +1,5 @@
-#include <iostream>
-#include <string>
-using namespace std;
 /*
-Your declarationsand implementations would go here
+Your declarations and implementations would go here
 Event, BasketballGame, Concert, and HockeyGame classes
 */
 class Event {
@@ -25,7 +22,7 @@ class BasketballGame : public Event {
 public:
     BasketballGame(string name) : Event(name) {
     }
-    ~BasketballGame() {
+    virtual ~BasketballGame() {
         cout << "Destroying the " << name() << " basketball game" << endl;
     }
     string need() const {
@@ -36,7 +33,7 @@ class Concert : public Event {
 public:
     Concert(string name, string type) : Event(name), m_type(type) {
     }
-    ~Concert() {
+    virtual ~Concert() {
         cout << "Destroying the " << name() << " " << m_type << " concert" << endl;
     }
     bool isSport() const {
@@ -52,52 +49,10 @@ class HockeyGame : public Event {
 public:
     HockeyGame(string name) : Event(name) {
     }
-    ~HockeyGame() {
+    virtual ~HockeyGame() {
         cout << "Destroying the " << name() << " hockey game" << endl;
     }
     string need() const {
         return "ice";
     }
 };
-
-void display(const Event* e)
-{
-    cout << e->name() << ": ";
-    if (e->isSport())
-        cout << "(sport) ";
-    cout << "needs " << e->need() << endl;
-}
-
-int main()
-{
-    Event* events[4];
-    events[0] = new BasketballGame("Lakers vs. Suns");
-    // Concerts have a name and a genre.
-    events[1] = new Concert("Banda MS", "banda");
-    events[2] = new Concert("KISS", "hard rock");
-    events[3] = new HockeyGame("Kings vs. Flames");
-    cout << "Here are the events." << endl;
-    for (int k = 0; k < 4; k++) {
-        display(events[k]);
-    }
-    // Clean up the events before exiting
-    cout << "Cleaning up." << endl;
-    for (int k = 0; k < 4; k++) {
-        delete events[k];
-    }
-}
-
-/*
-Output produced :
-
-Here are the events.
-Lakers vs.Suns : (sport)needs hoops
-Banda MS : needs a stage
-KISS : needs a stage
-Kings vs.Flames : (sport)needs ice
-Cleaning up.
-Destroying the Lakers vs.Suns basketball game
-Destroying the Banda MS banda concert
-Destroying the KISS hard rock concert
-Destroying the Kings vs.Flames hockey game
-*/
